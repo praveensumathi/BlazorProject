@@ -1,0 +1,59 @@
+﻿@page "/AddEmployee"
+@using BlazorApp1.Data
+@inject EmployeeService addEmp
+@inject NavigationManager navigationmanager
+
+<h3>AddEmployee</h3>
+<hr />
+
+<form>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group">
+                <label for="FirstName" class="control-label">FirstName</label>
+                <input form="FirstName" placeholder="Eg : Praveen" class="form-control" @bind="@AddEmp.FirstName" />
+            </div>
+            <div class="form-group">
+                <label for="LastName"  class="control-label">LastName</label>
+                <input form="LastName" placeholder="Eg : Kumar" class="form-control" @bind="@AddEmp.LastName" />
+            </div>
+            <div class="form-group">
+                <label for="UserName" class="control-label">UserName</label>
+                <input form="UserName" placeholder="Eg : Praveen1998..etc" class="form-control" @bind="@AddEmp.UserName" />
+            </div>
+            <div class="form-group">
+                <label for="Email" class="control-label">Email</label>
+                <input form="Email" placeholder="abc@gmail.com" class="form-control" @bind="@AddEmp.Email" />
+            </div>
+            <div class="form-group">
+                <label for="Password" class="control-label">Password</label>
+                <input form="Password" type="password" class="form-control" @bind="@AddEmp.Password" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="button" @onclick="@CreateNewEmployee" class="btn btn-primary" value="Submit" />
+            </div>
+        </div>
+    </div>
+    <div>
+
+    </div>
+</form>
+
+@code {
+    EmployeeDetails AddEmp = new EmployeeDetails();
+
+    protected void CreateNewEmployee()
+    {
+        addEmp.AddEmployee(AddEmp);
+        navigationmanager.NavigateTo("Employee");
+    }
+    void cancel()
+    {
+        navigationmanager.NavigateTo("Employee");
+    }
+}

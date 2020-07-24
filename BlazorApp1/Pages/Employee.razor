@@ -1,0 +1,45 @@
+﻿@page "/employee"
+@using BlazorApp1.Data
+@inject EmployeeService newEmployee
+
+<NavLink class="nav-link" href="AddEmployee">
+    <span class="oi oi-plus btn btn-secondary" aria-hidden="true"> Add user</span>
+    <hr />
+</NavLink>
+
+@if(newEmp == null)
+{
+    <p>No Data</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <td><b>UserName</b></td>
+                <td><b>FirstName</b></td>
+                <td><b>Email</b></td>
+                <td><b>Status</b></td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var emp in newEmp)
+            {
+                <tr>
+                    <td>@emp.UserName</td>
+                    <td>@emp.FirstName</td>
+                    <td>@emp.Email</td>
+                    <td>@newEmployee.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<EmployeeDetails> newEmp;
+    protected override async Task OnInitializedAsync()
+    {
+        newEmp = await Task.Run(() => newEmployee.GetEmployee());
+    }
+}
